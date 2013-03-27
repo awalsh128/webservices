@@ -66,7 +66,7 @@ def getPerms(params, args, perms, perm):
             getPerms(params[1:], args[1:], perms, perm + [(params[0], args[0][i])])    
     return perms
     
-wsdDocument = getDocument("http://{0}/{1}.asmx?wsdl".format(host, page))
+wsdDocument = getDocument("http://{0}/{1}?wsdl".format(host, page))
 serviceName = getServiceName(wsdDocument)
 elements, enums = getTypeNames(wsdDocument)
 operations = getOperations(wsdDocument)
@@ -80,7 +80,7 @@ for op in operations:
     args = [test_args[param] for param in elements[op]]    
     op_values = getPerms(elements[op], args, [], [])    
     for op_value in op_values:        
-        op_url = getOperationUrl(host, page + ".xml", op, op_value)
+        op_url = getOperationUrl(host, page, op, op_value)
         msg = "GET {0}".format(op_url)
         print(msg)
         fout.write(msg)
